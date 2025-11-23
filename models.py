@@ -35,14 +35,14 @@ class Duplicata(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     numero_nota = db.Column(db.String(50), nullable=False)
     valor = db.Column(db.Float, nullable=False)
-    data_emissao = db.Column(db.Datetime, nullable=False)
-    data_vencimento = db.Column(db.Datetime, nullable=False)
+    data_emissao = db.Column(db.String(20), nullable=False)
+    data_vencimento = db.Column(db.String(20), nullable=False)
     status = db.Column(db.Enum(StatusDuplicata), default=StatusDuplicata.EMISSAO, nullable=False)
     sacador_id = db.Column(db.Integer, db.ForeignKey('empresas.id'), nullable=False)
     sacado_id = db.Column(db.Integer, db.ForeignKey('empresas.id'), nullable=False)
     
     sacador = db.relationship('Empresa', foreign_keys=[sacador_id])
-    sacado = db.relationship('Empresas', foreign_keys=[sacado_id])
+    sacado = db.relationship('Empresa', foreign_keys=[sacado_id])
 
     def to_dict(self):
         return {
