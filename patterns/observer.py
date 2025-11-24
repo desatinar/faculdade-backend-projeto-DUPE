@@ -16,3 +16,14 @@ class Notificador:
     def notificar_todos(self, duplicata):
         for obs in self._observadores:
             obs.atualizar(duplicata)
+
+class LogObserver(Observador):
+    def atualizar(self, duplicata):
+        print(f"[LOG SISTEMA] Status alterado para: {duplicata.status.value}")
+
+class EmailOberserver(Observador):
+    def atualizar(self, duplicata):
+        if duplicata.status.name == "ACEITE":
+            print(f"[EMAIL] Para Sacado: Boleto aceito.")
+        elif duplicata.status.name == "LIQUIDACAO":
+            print(f"[EMAIL] Para Sacador: Pagamento confirmado.")
