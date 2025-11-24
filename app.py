@@ -14,6 +14,16 @@ def create_app(config_class=DevelopmentConfig):
     with app.app_context():
         db.create_all()
 
+    @app.route('/empresas', methods=['GET'])
+    def listar_empresas():
+        empresas = Empresa.query.all()
+        return jsonify([e.to_dict() for e in empresas]), 200
+    
+    @app.route('/empresas/<int:id>', methods=['GET'])
+    def buscar_empresa(id):
+        empresa = Empresa.query.get_or_404(id)
+        return jsonify(empresa.to_dict()), 200
+
     @app.route('/empresas', methods=['POST'])
     def criar_empresa():
         data = request.json
@@ -31,6 +41,16 @@ def create_app(config_class=DevelopmentConfig):
         except Exception as e:
             db.session.rollback()
             return jsonify({"erro": "Dados inválidos ou duplicados"}), 400
+        
+    @app.route('/duplicatas', methods=['GET'])
+    def listar_duplicatas():
+        duplicatas = Duplicata.query.all()
+        return jsonify([d.to_dict() for d in duplicatas]), 200
+    
+    @app.route('/duplicatas/<int:id>', methods=['GET'])
+    def buscar_duplicata_por_id(id):
+        duplicata = Duplicata.query.get_or_404(id)
+        return jsonify(duplicata.to_dict()), 200
         
     @app.route('/duplicatas', methods=['POST'])
     def criar_duplicata():
