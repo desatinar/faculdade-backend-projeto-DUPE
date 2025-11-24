@@ -14,7 +14,6 @@ vida das duplicatas e notificar observadores quando o estado muda.
   - `observer.py`: `Notificador` e observadores (logs e emails simulados)
   - `service.py`: orquestra `state` e `observer` para avançar estados
 - `tests/`: testes unitários (`conftest.py`, `test_models.py`, `test_state.py`, `test_observer.py`)
-- `run.py`: pequeno script de demonstração do padrão (na raiz)
 
 ## Requisitos
 - Python 3.11+ (testado com Python 3.14)
@@ -66,13 +65,3 @@ Dicas para evitar `ModuleNotFoundError` ao rodar testes:
 - A aplicação cria as tabelas (via `db.create_all()`) no contexto do app ao iniciar. Em produção, prefira migrações (Flask-Migrate/Alembic).
 - As datas no modelo `Duplicata` são armazenadas como string; considere `db.DateTime` para validações mais robustas.
 - `TestingConfig` usa `sqlite:///:memory` para testes unitários.
-
-## Demo
-- `run.py` contém um exemplo simples de uso do `service.py` para avançar o estado de uma `Duplicata` e imprimir notificações.
-
-## Contribuição
-- Siga convenções de commits (`feat`, `fix`, `refactor`, `test`, `chore`)
-- Garanta que os testes existentes estejam verdes antes de abrir PR
-
-## Licença
-Projeto sem licença específica. Adicione um `LICENSE` se necessário.
